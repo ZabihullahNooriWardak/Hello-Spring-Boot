@@ -8,6 +8,7 @@ import com.example.demo.repository.StudentRepository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,16 +21,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
+
+    @Autowired
+
     
 private final StudentRepository studentRepository;
 public StudentController(StudentRepository studentRepository){
     this.studentRepository=studentRepository;
 }
-@PostMapping("/students")
-public Student addStudent(@RequestBody Student student) {
+@PostMapping
+public ResponseEntity<Student> addStudent(@RequestBody Student student) {
   Student savedStudent =  studentRepository.save(student);
     
-    return savedStudent;
+    return new ResponseEntity<>(savedStudent,HttpStatus.CREATED);
 }
 @GetMapping
 public ResponseEntity<List<Student>> getAllStudents() {
