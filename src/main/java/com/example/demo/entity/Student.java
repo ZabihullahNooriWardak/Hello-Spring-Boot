@@ -4,25 +4,36 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
+@Table(name="students")
 public class Student {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+    
     private String email;
 
-    public Student(){
+   @ManyToOne
+   @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
+    public Student() {
 
     }
 
-    public Student(String name, String email){
-        this.name=name;
-        this.email=email;
+    public Student(String name, String email,Teacher teacher) {
+        this.name = name;
+        this.email = email;
+        this.teacher = teacher;
     }
+
     public Long getId() {
         return id;
     }
@@ -46,6 +57,11 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public Teacher getTeacher(){
+        return this.teacher;
+    }
+    public void setTeacher(Teacher teacher){
+        this.teacher=teacher;
+    }
 
 }
