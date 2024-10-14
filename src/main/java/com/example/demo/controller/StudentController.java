@@ -41,7 +41,7 @@ public class StudentController {
         return studentService.getStudentById(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Student updateStudent(@RequestBody Student studentDetails) {
 
         if (studentService.getStudentById(studentDetails.getId()).getId().equals(studentDetails.getId())) {

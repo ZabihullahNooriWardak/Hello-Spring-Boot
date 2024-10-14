@@ -1,6 +1,8 @@
 package com.example.demo.serviceimp;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.example.demo.serviceinterface.teacherServiceInterface;
 
 @Service
 public class TeacherService implements teacherServiceInterface {
+
     @Autowired
     TeacherRepository teacherRepository;
 
@@ -31,14 +34,15 @@ public class TeacherService implements teacherServiceInterface {
             teacher.setName(teacherDetails.getName());
             teacher.setEmail(teacherDetails.getEmail());
             Teacher updateTeacher = teacherRepository.save(teacher);
-         return updateTeacher;
+            return updateTeacher;
         }).orElseGet(() -> null);
     }
 
     @Override
-    public Teacher deleteTeacher(Long id) {
+    public void deleteTeacher(Long id) {
 
-        return null;
+        teacherRepository.deleteById(id);
+
     }
 
     @Override
@@ -49,7 +53,8 @@ public class TeacherService implements teacherServiceInterface {
 
     @Override
     public Teacher getTeacherById(Long id) {
-        return null;
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        return teacher.get();
     }
 
 }

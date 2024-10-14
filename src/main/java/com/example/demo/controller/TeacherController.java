@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/teachers")
 public class TeacherController {
+
     @Autowired
     private final TeacherService teacherService;
 
@@ -36,9 +38,18 @@ public class TeacherController {
 
     @PutMapping("/{id}")
     public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
-
         return teacherService.updateTeacher(id, teacherDetails);
-
     }
 
+    @GetMapping("/{id}")
+    public Teacher getTeacher(@PathVariable Long id) {
+        return teacherService.getTeacherById(id);
+    }
+    
+    @DeleteMapping("/{id}")
+
+    public void deleteTeacher(@PathVariable Long id){
+            
+            teacherService.deleteTeacher(id);
+    }
 }

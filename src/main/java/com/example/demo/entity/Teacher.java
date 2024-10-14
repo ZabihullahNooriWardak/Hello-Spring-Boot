@@ -6,10 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;;
 
 @Entity
 @Table(name = "teachers")
+
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +21,7 @@ public class Teacher {
     private String email;
 
     @OneToMany(mappedBy = "teacher")
+    @JsonManagedReference
     private List<Student> students;
 
     public Teacher() {

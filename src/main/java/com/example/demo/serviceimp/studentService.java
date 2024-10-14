@@ -38,7 +38,6 @@ public class studentService implements studentServiceInterface {
     @Override
     public Student updateStudent(Student studentDetails) {
         Optional<Student> student = studentRepository.findById(studentDetails.getId());
-
         Student student1 = student.get();
         student1.setName(studentDetails.getName());
         student1.setEmail(studentDetails.getEmail());
