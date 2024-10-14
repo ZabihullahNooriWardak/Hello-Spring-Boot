@@ -43,6 +43,13 @@ public class StudentController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+        return studentRepository.findById(id).map(student -> ResponseEntity.ok(student))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentDetails) {
         return studentRepository.findById(id).map(student -> {
@@ -61,5 +68,6 @@ public class StudentController {
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 
 }
