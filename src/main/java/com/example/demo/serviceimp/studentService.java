@@ -34,8 +34,8 @@ public class studentService implements studentServiceInterface {
     }
 
     @Override
-    public Student updateStudent(Long id, Student studentDetails) {
-        Optional<Student> student = studentRepository.findById(id);
+    public Student updateStudent( Student studentDetails) {
+        Optional<Student> student = studentRepository.findById(studentDetails.getId());
         if (student.isPresent()) {
             Student student1 = student.get();
             student1.setName(studentDetails.getName());
