@@ -37,7 +37,7 @@ public class TeacherController {
     @PutMapping("/{id}")
     public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
 
-        return teacherService.updateTeacher(id);
+        return teacherService.updateTeacher(id, teacherDetails);
 
     }
 
