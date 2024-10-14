@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +43,21 @@ public class StudentController {
 
     @PutMapping
     public Student updateStudent(@RequestBody Student studentDetails) {
-        return studentService.updateStudent(studentDetails);
+
+        if (studentService.getStudentById(studentDetails.getId()).getId().equals(studentDetails.getId())) {
+            return studentService.updateStudent(studentDetails);
+        }
+        return null;
     }
 
     @DeleteMapping("/{id}")
 
     public void deletestudent(@PathVariable Long id) {
 
-       if(studentService.getStudentById(id).getId().equals(id)) {
+        if (studentService.getStudentById(id).getId().equals(id)) {
 
-           studentService.deleteStudent(id);
-       }
+            studentService.deleteStudent(id);
+        }
 
     }
 

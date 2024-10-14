@@ -38,16 +38,14 @@ public class studentService implements studentServiceInterface {
     @Override
     public Student updateStudent(Student studentDetails) {
         Optional<Student> student = studentRepository.findById(studentDetails.getId());
-        if (student.isPresent()) {
-            Student student1 = student.get();
-            student1.setName(studentDetails.getName());
-            student1.setEmail(studentDetails.getEmail());
-            student1.setTeacher(studentDetails.getTeacher());
-            Student updatedStudent = studentRepository.save(student1);
-            return updatedStudent;
-        } else {
-            return null;
-        }
+
+        Student student1 = student.get();
+        student1.setName(studentDetails.getName());
+        student1.setEmail(studentDetails.getEmail());
+        student1.setTeacher(studentDetails.getTeacher());
+        Student updatedStudent = studentRepository.save(student1);
+        return updatedStudent;
+
     }
 
     @Override
