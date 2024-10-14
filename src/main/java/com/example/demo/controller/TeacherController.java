@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Teacher;
-
-import com.example.demo.repository.TeacherRepository;
+import com.example.demo.serviceimp.TeacherService;
 
 import java.util.List;
 
@@ -21,32 +18,26 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
     @Autowired
-    private final TeacherRepository teacherRepository;
+    private final TeacherService teacherService;
 
-    public TeacherController(TeacherRepository teacherRepository) {
-        this.teacherRepository = teacherRepository;
+    public TeacherController(TeacherService teacherService) {
+        this.teacherService = teacherService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Teacher>> getAllTeacher() {
-        List<Teacher> teachers = teacherRepository.findAll();
-        return new ResponseEntity<>(teachers, HttpStatus.OK);
+    public List<Teacher> getAllTeacher() {
+        return teacherService.getAllTeachers();
     }
 
     @PostMapping
-    public ResponseEntity<Teacher> postTeacher(@RequestBody Teacher teacher) {
-        Teacher savedTeacher = teacherRepository.save(teacher);
-        return new ResponseEntity<>(savedTeacher, HttpStatus.CREATED);
+    public Teacher postTeacher(@RequestBody Teacher teacher) {
+        return teacherService.addTeacher(teacher);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
-        return teacherRepository.findById(id).map(teacher -> {
-            teacher.setName(teacherDetails.getName());
-            teacher.setEmail(teacherDetails.getEmail());
-            Teacher updateTeacher = teacherRepository.save(teacher);
-            return ResponseEntity.ok(updateTeacher);
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+    public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
+
+        return teacherService.updateTeacher(id);
 
     }
 

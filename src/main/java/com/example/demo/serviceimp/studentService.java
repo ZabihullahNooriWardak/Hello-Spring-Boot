@@ -3,7 +3,6 @@ package com.example.demo.serviceimp;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
@@ -17,25 +16,25 @@ public class studentService implements studentServiceInterface {
     private StudentRepository studentRepository;
 
     @Override
-    public ResponseEntity<Student> addStudent(Student student) {
+    public Student addStudent(Student student) {
 
-        Student student1 = studentRepository.save(student);
-        return ResponseEntity.ok(student1);
+        return studentRepository.save(student);
 
     }
 
     @Override
-    public ResponseEntity<Student> getStudentById(Long id) {
+    public Student getStudentById(Long id) {
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()) {
-            return ResponseEntity.ok(student.get());
+            return student.get();
         } else {
-            return ResponseEntity.ok(null);
+            return null;
         }
+
     }
 
     @Override
-    public ResponseEntity<Student> updateStudent(Long id, Student studentDetails) {
+    public Student updateStudent(Long id, Student studentDetails) {
         Optional<Student> student = studentRepository.findById(id);
         if (student.isPresent()) {
             Student student1 = student.get();
@@ -43,27 +42,22 @@ public class studentService implements studentServiceInterface {
             student1.setEmail(studentDetails.getEmail());
             student1.setTeacher(studentDetails.getTeacher());
             Student updatedStudent = studentRepository.save(student1);
-            return ResponseEntity.ok(updatedStudent);
+            return updatedStudent;
         } else {
-            return ResponseEntity.ok(null);
+            return null;
         }
     }
 
     @Override
-    public ResponseEntity<Student> deleteStudent(Long id) {
+    public void deleteStudent(Long id) {
         Optional<Student> student = studentRepository.findById(id);
-        if (student.isPresent()) {
-            studentRepository.delete(student.get());
-            return ResponseEntity.ok(student.get());
-        } else {
-            return ResponseEntity.ok(null);
-        }
+        studentRepository.delete(student.get());
     }
 
     @Override
-    public ResponseEntity<List<Student>> getAllStudents() {
+    public List<Student> getAllStudents() {
         List<Student> students = studentRepository.findAll();
-        return ResponseEntity.ok(students);
+        return students;
     }
 
 }

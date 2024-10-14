@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,29 +25,31 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public Student addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
+    public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+    public Student getStudentById(@PathVariable Long id) {
         return studentService.getStudentById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentDetails) {
+    public Student updateStudent(@PathVariable Long id, @RequestBody Student studentDetails) {
         return studentService.updateStudent(id, studentDetails);
     }
 
     @DeleteMapping("/{id}")
 
-    public ResponseEntity<Student> deletestudent(@PathVariable Long id) {
-        return studentService.deleteStudent(id);
+    public void deletestudent(@PathVariable Long id) {
+
+        studentService.deleteStudent(id);
+
     }
 
 }
