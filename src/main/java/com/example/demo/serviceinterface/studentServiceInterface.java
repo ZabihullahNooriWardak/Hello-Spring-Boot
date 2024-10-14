@@ -1,4 +1,5 @@
 package com.example.demo.serviceinterface;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
@@ -14,6 +15,6 @@ ResponseEntity<Student> updateStudent(Long id, Student studentDetails);
 
 ResponseEntity<Student> deleteStudent(Long id);
 
-ResponseEntity<Student> getAllStudents();
+ResponseEntity<List<Student>> getAllStudents();
     
 } 

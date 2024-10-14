@@ -61,7 +61,7 @@ public class studentService implements studentServiceInterface {
     }
 
     @Override
-    public ResponseEntity getAllStudents() {
+    public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = studentRepository.findAll();
         return ResponseEntity.ok(students);
     }
