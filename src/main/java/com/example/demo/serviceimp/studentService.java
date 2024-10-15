@@ -27,12 +27,7 @@ public class studentService implements studentServiceInterface {
     @Override
     public Student getStudentById(Long id) {
         Optional<Student> student = studentRepository.findById(id);
-        if (student.isPresent()) {
-            return student.get();
-        } else {
-            return null;
-        }
-
+        return student.get();
     }
 
     @Override

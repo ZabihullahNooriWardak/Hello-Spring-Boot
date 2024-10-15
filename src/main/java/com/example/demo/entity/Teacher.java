@@ -6,8 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 import java.util.List;
 
@@ -15,8 +15,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;;
 
 @Entity
 @Table(name = "teachers")
-@Getter
-@Setter
+@Data
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
