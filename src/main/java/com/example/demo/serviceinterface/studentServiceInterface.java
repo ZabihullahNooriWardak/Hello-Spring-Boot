@@ -11,7 +11,7 @@ Student getStudentById(Long id);
 
 Student updateStudent(Student studentDetails);
 
-void deleteStudent(Long id);
+void deleteStudent(Student student);
 
 List<Student> getAllStudents();
     

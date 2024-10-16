@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.entity.Student;
+import com.example.demo.repository.StudentRepository;
 import com.example.demo.serviceimp.studentService;
 
 import jakarta.validation.Valid;
@@ -23,6 +23,7 @@ public class StudentController {
 
     @Autowired
     private final studentService studentService;
+    private StudentRepository StudentRepository;
 
     public StudentController(studentService studentService) {
         this.studentService = studentService;
@@ -46,20 +47,19 @@ public class StudentController {
     @PutMapping("/{id}")
     public Student updateStudent(@RequestBody Student studentDetails) {
 
-        if (studentService.getStudentById(studentDetails.getId()).getId().equals(studentDetails.getId())) {
+        if (StudentRepository.existsById(studentDetails.getId())) {
             return studentService.updateStudent(studentDetails);
+        } else {
+            return null;
         }
-        return null;
+
     }
 
     @DeleteMapping("/{id}")
 
-    public void deletestudent(@PathVariable Long id) {
+    public void deletestudent(@RequestBody Student student) {
 
-        if (studentService.getStudentById(id).getId().equals(id)) {
-
-            studentService.deleteStudent(id);
-        }
+        studentService.deleteStudent(student);
 
     }
 

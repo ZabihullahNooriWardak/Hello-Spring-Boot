@@ -15,7 +15,7 @@ import com.example.demo.serviceinterface.studentServiceInterface;
 public class studentService implements studentServiceInterface {
 
     @Autowired
-    private StudentRepository studentRepository;
+   private  StudentRepository studentRepository;
 
     @Override
     public Student addStudent(Student student) {
@@ -32,20 +32,16 @@ public class studentService implements studentServiceInterface {
 
     @Override
     public Student updateStudent(Student studentDetails) {
-        Optional<Student> student = studentRepository.findById(studentDetails.getId());
-        Student student1 = student.get();
-        student1.setName(studentDetails.getName());
-        student1.setEmail(studentDetails.getEmail());
-        student1.setTeacher(studentDetails.getTeacher());
-        Student updatedStudent = studentRepository.save(student1);
+       
+        Student updatedStudent = studentRepository.save(studentDetails);
         return updatedStudent;
 
     }
 
     @Override
-    public void deleteStudent(Long id) {
-        Optional<Student> student = studentRepository.findById(id);
-        studentRepository.delete(student.get());
+    public void deleteStudent(Student student) {
+        studentRepository.delete(student);
+
     }
 
     @Override
