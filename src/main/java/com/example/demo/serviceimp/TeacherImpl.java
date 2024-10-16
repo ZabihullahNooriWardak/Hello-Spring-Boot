@@ -9,12 +9,12 @@ import com.example.demo.repository.TeacherRepository;
 import com.example.demo.serviceinterface.TeacherService;
 
 @Service
-public class TeacherImp implements TeacherService {
+public class TeacherImpl implements TeacherService {
 
     @Autowired
     TeacherRepository teacherRepository;
 
-    public TeacherImp(TeacherRepository teacherRepository) {
+    public TeacherImpl(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
 

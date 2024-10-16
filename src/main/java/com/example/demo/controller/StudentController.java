@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
-import com.example.demo.serviceimp.StudentImp;
+import com.example.demo.serviceimp.StudentImpl;
 import jakarta.validation.Valid;
 
 @RestController
@@ -21,9 +20,9 @@ import jakarta.validation.Valid;
 public class StudentController {
 
     @Autowired
-    private final StudentImp studentService;
+    private final StudentImpl studentService;
 
-    public StudentController(StudentImp studentService) {
+    public StudentController(StudentImpl studentService) {
 
         this.studentService = studentService;
     }
@@ -58,8 +57,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student>
-            pdate(@RequestBody Student studentDetails) {
+    public ResponseEntity<Student> update(@RequestBody Student studentDetails) {
 
         Student updateStudent = studentService.update(studentDetails);
         return ResponseEntity.ok(updateStudent);

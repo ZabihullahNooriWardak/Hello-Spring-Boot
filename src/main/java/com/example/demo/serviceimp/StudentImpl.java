@@ -9,7 +9,7 @@ import com.example.demo.repository.StudentRepository;
 import com.example.demo.serviceinterface.StudentService;
 
 @Service
-public class StudentImp implements StudentService {
+public class StudentImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
