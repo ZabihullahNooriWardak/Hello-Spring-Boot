@@ -1,19 +1,18 @@
 package com.example.demo.serviceinterface;
 
 import java.util.List;
-
 import com.example.demo.entity.Teacher;
 
-public interface teacherServiceInterface {
+public interface TeacherServiceInterface {
 
-    public Teacher addTeacher(Teacher teacher);
-
-    public Teacher updateTeacher(Long id,Teacher teacherdetails);
-
-    public void deleteTeacher(Long id);
+    public Teacher getTeacherById(Long id);
 
     public List<Teacher> getAllTeachers();
 
-    public Teacher getTeacherById(Long id);
+    public Teacher addTeacher(Teacher teacher);
+
+    public Teacher updateTeacher(Teacher teacherdetails);
+
+    public void deleteTeacher(Long id);
 
 }

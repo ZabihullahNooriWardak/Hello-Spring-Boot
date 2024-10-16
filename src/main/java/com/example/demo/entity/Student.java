@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +22,10 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     private String name;
+
     @NotBlank(message = "Email is mandatory")
     @Email
     private String email;
@@ -34,10 +35,8 @@ public class Student {
     @JsonBackReference
     private Teacher teacher;
 
-    public Student() {
-
-    }
-
+    public Student() {}
+    
     public Student(String name, String email, Teacher teacher) {
         this.name = name;
         this.email = email;

@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.entity.Teacher;
 import com.example.demo.serviceimp.TeacherService;
-
 import java.util.List;
 
 @RestController
@@ -37,19 +35,18 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
-        return teacherService.updateTeacher(id, teacherDetails);
+    public Teacher updateTeacher(@RequestBody Teacher teacherDetails) {
+        return teacherService.updateTeacher(teacherDetails);
     }
 
     @GetMapping("/{id}")
     public Teacher getTeacher(@PathVariable Long id) {
         return teacherService.getTeacherById(id);
     }
-    
-    @DeleteMapping("/{id}")
 
-    public void deleteTeacher(@PathVariable Long id){
-            
-            teacherService.deleteTeacher(id);
+    @DeleteMapping("/{id}")
+    public void deleteTeacher(@PathVariable Long id) {
+
+        teacherService.deleteTeacher(id);
     }
 }

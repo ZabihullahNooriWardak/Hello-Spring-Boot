@@ -1,18 +1,18 @@
 package com.example.demo.serviceinterface;
-import java.util.List;
 
+import java.util.List;
 import com.example.demo.entity.Student;
 
-public interface studentServiceInterface {
+public interface StudentServiceInterface {
 
-Student addStudent(Student student);
+    Student addStudent(Student student);
 
-Student getStudentById(Long id);
+    Student getStudentById(Long id);
 
-Student updateStudent(Student studentDetails);
+    Student updateStudent(Student studentDetails);
 
-void deleteStudent(Student student);
+    void deleteStudent(Long id);
 
-List<Student> getAllStudents();
-    
-} 
+    List<Student> getAllStudents();
+
+}
