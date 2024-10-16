@@ -19,34 +19,34 @@ public class TeacherImp implements TeacherService {
     }
 
     @Override
-    public Teacher getTeacherById(Long id) {
+    public Teacher get(Long id) {
 
         Optional<Teacher> teacher = teacherRepository.findById(id);
         return teacher.get();
     }
 
     @Override
-    public List<Teacher> getAllTeachers() {
+    public List<Teacher> getAll() {
 
         List<Teacher> teachers = teacherRepository.findAll();
         return teachers;
     }
 
     @Override
-    public Teacher addTeacher(Teacher teacher) {
+    public Teacher create(Teacher teacher) {
 
         Teacher savedTeacher = teacherRepository.save(teacher);
         return savedTeacher;
     }
 
     @Override
-    public Teacher updateTeacher(Teacher teacherDetails) {
+    public Teacher update(Teacher teacherDetails) {
 
         return teacherRepository.save(teacherDetails);
     }
 
     @Override
-    public void deleteTeacher(Long id) {
+    public void delete(Long id) {
 
         teacherRepository.deleteById(id);
     }

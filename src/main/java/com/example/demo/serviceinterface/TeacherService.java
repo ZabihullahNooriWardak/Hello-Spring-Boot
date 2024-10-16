@@ -5,14 +5,14 @@ import com.example.demo.entity.Teacher;
 
 public interface TeacherService {
 
-    public Teacher getTeacherById(Long id);
+    public Teacher get(Long id);
 
-    public List<Teacher> getAllTeachers();
+    public List<Teacher> getAll();
 
-    public Teacher addTeacher(Teacher teacher);
+    public Teacher create(Teacher teacher);
 
-    public Teacher updateTeacher(Teacher teacherdetails);
+    public Teacher update(Teacher teacherdetails);
 
-    public void deleteTeacher(Long id);
+    public void delete(Long id);
 
 }
