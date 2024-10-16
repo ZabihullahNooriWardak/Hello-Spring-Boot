@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
-import com.example.demo.serviceimp.StudentService;
+import com.example.demo.serviceimp.StudentImp;
 import jakarta.validation.Valid;
 
 @RestController
@@ -20,10 +20,10 @@ import jakarta.validation.Valid;
 public class StudentController {
 
     @Autowired
-    private final StudentService studentService;
+    private final StudentImp studentService;
     private StudentRepository StudentRepository;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentImp studentService) {
 
         this.studentService = studentService;
     }
@@ -31,26 +31,26 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable Long id) {
 
-        return studentService.getStudentById(id);
+        return studentService.get(id);
     }
 
     @GetMapping
     public List<Student> getAllStudents() {
 
-        return studentService.getAllStudents();
+        return studentService.getAll();
     }
 
     @PostMapping
     public Student addStudent(@RequestBody @Valid Student student) {
 
-        return studentService.addStudent(student);
+        return studentService.create(student);
     }
 
     @PutMapping("/{id}")
     public Student updateStudent(@RequestBody Student studentDetails) {
 
         if (StudentRepository.existsById(studentDetails.getId())) {
-            return studentService.updateStudent(studentDetails);
+            return studentService.update(studentDetails);
         } else {
             return null;
         }
@@ -59,7 +59,7 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deletestudent(@PathVariable Long id) {
 
-        studentService.deleteStudent(id);
+        studentService.delete(id);
     }
 
 }

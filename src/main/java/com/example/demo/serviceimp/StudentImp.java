@@ -6,41 +6,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
-import com.example.demo.serviceinterface.StudentServiceInterface;
+import com.example.demo.serviceinterface.StudentService;
 
 @Service
-
-public class StudentService implements StudentServiceInterface {
+public class StudentImp implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
 
     @Override
-    public Student addStudent(Student student) {
+    public Student create(Student student) {
 
         return studentRepository.save(student);
     }
 
     @Override
-    public Student getStudentById(Long id) {
+    public Student get(Long id) {
         Optional<Student> student = studentRepository.findById(id);
         return student.get();
     }
 
     @Override
-    public Student updateStudent(Student studentDetails) {
+    public Student update(Student studentDetails) {
 
         return studentRepository.save(studentDetails);
     }
 
     @Override
-    public void deleteStudent(Long id) {
+    public void delete(Long id) {
 
         studentRepository.deleteById(id);
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public List<Student> getAll() {
         List<Student> students = studentRepository.findAll();
         return students;
     }

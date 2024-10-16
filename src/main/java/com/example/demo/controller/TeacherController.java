@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Teacher;
-import com.example.demo.serviceimp.TeacherService;
+import com.example.demo.serviceimp.TeacherImp;
 import java.util.List;
 
 @RestController
@@ -18,9 +18,9 @@ import java.util.List;
 public class TeacherController {
 
     @Autowired
-    private final TeacherService teacherService;
+    private final TeacherImp teacherService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherImp teacherService) {
         this.teacherService = teacherService;
     }
 

@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Teacher;
 import com.example.demo.repository.TeacherRepository;
-import com.example.demo.serviceinterface.TeacherServiceInterface;
+import com.example.demo.serviceinterface.TeacherService;
 
 @Service
-public class TeacherService implements TeacherServiceInterface {
+public class TeacherImp implements TeacherService {
 
     @Autowired
     TeacherRepository teacherRepository;
 
-    public TeacherService(TeacherRepository teacherRepository) {
+    public TeacherImp(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
 

@@ -3,7 +3,7 @@ package com.example.demo.serviceinterface;
 import java.util.List;
 import com.example.demo.entity.Teacher;
 
-public interface TeacherServiceInterface {
+public interface TeacherService {
 
     public Teacher getTeacherById(Long id);
 
