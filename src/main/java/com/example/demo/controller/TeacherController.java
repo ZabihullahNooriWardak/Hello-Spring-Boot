@@ -11,45 +11,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Teacher;
-import com.example.demo.serviceimp.TeacherService;
+import com.example.demo.serviceimp.TeacherImp;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/teachers")
 public class TeacherController {
 
     @Autowired
-    private final TeacherService teacherService;
+    private final TeacherImp teacherService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherImp teacherService) {
         this.teacherService = teacherService;
     }
 
     @GetMapping
-    public List<Teacher> getAllTeacher() {
-        return teacherService.getAllTeachers();
+    public ResponseEntity<List<Teacher>> get() {
+        List<Teacher> teachers = teacherService.getAll();
+        return ResponseEntity.ok(teachers);
     }
 
     @PostMapping
-    public Teacher postTeacher(@RequestBody Teacher teacher) {
-        return teacherService.addTeacher(teacher);
+    public ResponseEntity<Teacher> create(@RequestBody Teacher teacher) {
+        Teacher newTeacher = teacherService.create(teacher);
+        return ResponseEntity.ok(newTeacher);
     }
 
     @PutMapping("/{id}")
-    public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
-        return teacherService.updateTeacher(id, teacherDetails);
+    public ResponseEntity<Teacher> update(@RequestBody Teacher teacherDetails) {
+        Teacher updatedTeacher = teacherService.update(teacherDetails);
+        return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Teacher getTeacher(@PathVariable Long id) {
-        return teacherService.getTeacherById(id);
+    public ResponseEntity<Teacher> get(@PathVariable Long id) {
+        Teacher teacher = teacherService.get(id);
+        return new ResponseEntity<>(teacher, HttpStatus.OK);
     }
-    
-    @DeleteMapping("/{id}")
 
-    public void deleteTeacher(@PathVariable Long id){
-            
-            teacherService.deleteTeacher(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        teacherService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
