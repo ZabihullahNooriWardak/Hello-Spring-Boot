@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +12,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.entity.Student;
 import com.example.demo.serviceimp.StudentImpl;
+
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
     private final StudentImpl studentService;
 
     public StudentController(StudentImpl studentService) {
@@ -49,25 +51,40 @@ public class StudentController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> update(@RequestBody Student studentDetails) {
+        Student checkStudent = studentService.get(studentDetails.getId());
+        if (checkStudent != null) {
+            Student updateStudent = studentService.update(studentDetails);
+            return ResponseEntity.ok(updateStudent);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Student> create(@RequestBody @Valid Student student) {
 
         Student savedStudent = studentService.create(student);
-        return ResponseEntity.ok().body(savedStudent);
-    }
+        if (savedStudent != null) {
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> update(@RequestBody Student studentDetails) {
-
-        Student updateStudent = studentService.update(studentDetails);
-        return ResponseEntity.ok(updateStudent);
+            // return ResponseEntity.ok().body(savedStudent);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Student> delete(@PathVariable Long id) {
+        if (studentService.get(id) != null) {
 
-        studentService.delete(id);
-        return ResponseEntity.ok().build();
+            studentService.delete(id);
+            return ResponseEntity.noContent().build();
+        } else {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
