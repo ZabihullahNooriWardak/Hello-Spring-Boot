@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
 import com.example.demo.serviceimp.StudentImpl;
+import com.example.demo.serviceinterface.StudentService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
+    // Bad way of Doing thing
+    // private final StudentImpl studentService;
 
-    private final StudentImpl studentService;
+    private final StudentService studentService;
 
     public StudentController(StudentImpl studentService) {
 
@@ -28,58 +31,43 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> get(@PathVariable Long id) {
-
-        Student student = studentService.get(id);
-        if (student != null) {
-            return ResponseEntity.ok().body(student);
+        if (studentService.existsById(id)) {
+            Student student = studentService.get(id);
+            return ResponseEntity.status(HttpStatus.OK).body(student);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
     }
 
     @GetMapping
     public ResponseEntity<List<Student>> getAll() {
-
         List<Student> students = studentService.getAll();
-        if (students != null) {
-            return ResponseEntity.ok().body(students);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(students);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> update(@RequestBody Student studentDetails) {
-        Student checkStudent = studentService.get(studentDetails.getId());
-        if (checkStudent != null) {
+        if (studentService.existsById(studentDetails.getId())) {
             Student updateStudent = studentService.update(studentDetails);
-            return ResponseEntity.ok(updateStudent);
+            return ResponseEntity.status(HttpStatus.OK).body(updateStudent);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
     }
 
     @PostMapping
     public ResponseEntity<Student> create(@RequestBody @Valid Student student) {
-
         Student savedStudent = studentService.create(student);
-        if (savedStudent != null) {
-
-            // return ResponseEntity.ok().body(savedStudent);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Student> delete(@PathVariable Long id) {
-        if (studentService.get(id) != null) {
-
+        if (studentService.existsById(id)) {
             studentService.delete(id);
             return ResponseEntity.noContent().build();
         } else {
-
             return ResponseEntity.notFound().build();
         }
     }

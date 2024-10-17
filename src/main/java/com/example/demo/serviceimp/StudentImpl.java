@@ -44,4 +44,9 @@ public class StudentImpl implements StudentService {
         return students;
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return studentRepository.existsById(id);
+    }
+
 }
