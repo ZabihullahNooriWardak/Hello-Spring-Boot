@@ -50,5 +50,8 @@ public class TeacherImpl implements TeacherService {
 
         teacherRepository.deleteById(id);
     }
-
+   @Override
+   public boolean existsById(Long id){
+    return teacherRepository.existsById(id);
+   }
 }

@@ -15,4 +15,6 @@ public interface TeacherService {
 
     public void delete(Long id);
 
+    public boolean existsById(Long id);
+
 }
