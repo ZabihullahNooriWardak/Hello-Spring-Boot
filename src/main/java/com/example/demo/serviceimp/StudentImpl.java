@@ -1,12 +1,14 @@
 package com.example.demo.serviceimp;
 
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.serviceinterface.StudentService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class StudentImpl implements StudentService {
@@ -39,8 +41,8 @@ public class StudentImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAll() {
-        List<Student> students = studentRepository.findAll();
+    public Page<Student> getAll(Pageable pageable) {
+        Page<Student> students = studentRepository.findAll(pageable);
         return students;
     }
 

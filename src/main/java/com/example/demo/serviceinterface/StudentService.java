@@ -1,6 +1,8 @@
 package com.example.demo.serviceinterface;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.demo.entity.Student;
 
 public interface StudentService {
@@ -13,7 +15,7 @@ public interface StudentService {
 
     void delete(Long id);
 
-    List<Student> getAll();
-    
+    Page<Student> getAll(Pageable pageable);
+
     boolean existsById(Long id);
 }

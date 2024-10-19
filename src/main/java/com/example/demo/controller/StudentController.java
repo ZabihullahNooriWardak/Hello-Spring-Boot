@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,8 +44,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAll() {
-        List<Student> students = studentService.getAll();
+    public ResponseEntity<Page<Student>> getAll(Pageable pageable) {
+        Page<Student> students = studentService.getAll(pageable);
         return ResponseEntity.status(HttpStatus.CREATED).body(students);
     }
 
