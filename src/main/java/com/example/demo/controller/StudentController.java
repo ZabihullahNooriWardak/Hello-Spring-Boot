@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
-import com.example.demo.serviceimp.StudentImpl;
 import com.example.demo.serviceinterface.StudentService;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,7 +25,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentImpl studentService) {
+    public StudentController(StudentService studentService) {
 
         this.studentService = studentService;
     }
@@ -36,7 +36,7 @@ public class StudentController {
             Student student = studentService.get(id);
             return ResponseEntity.status(HttpStatus.OK).body(student);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
     }
@@ -44,16 +44,16 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getAll(Pageable pageable) {
         Page<Student> students = studentService.getAll(pageable);
-        return ResponseEntity.status(HttpStatus.CREATED).body(students);
+        return ResponseEntity.status(HttpStatus.FOUND).body(students);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> update(@RequestBody Student studentDetails) {
-        if (studentService.existsById(studentDetails.getId())) {
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student studentDetails) {
+        if (studentService.existsById(studentDetails.getId()) && studentDetails.getId().equals(id)) {
             Student updateStudent = studentService.update(studentDetails);
             return ResponseEntity.status(HttpStatus.OK).body(updateStudent);
         } else {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
@@ -67,7 +67,8 @@ public class StudentController {
     public ResponseEntity<Student> delete(@PathVariable Long id) {
         if (studentService.existsById(id)) {
             studentService.delete(id);
-            return ResponseEntity.noContent().build();
+            // return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.FOUND).body(null);
         } else {
             return ResponseEntity.notFound().build();
         }

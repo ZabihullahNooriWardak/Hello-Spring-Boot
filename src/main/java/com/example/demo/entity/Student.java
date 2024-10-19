@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,11 +31,11 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
-    @JsonBackReference
     private Teacher teacher;
 
-    public Student() {}
-    
+    public Student() {
+    }
+
     public Student(String name, String email, Teacher teacher) {
         this.name = name;
         this.email = email;

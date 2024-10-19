@@ -8,9 +8,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-;
 
 @Entity
 @Table(name = "teachers")
@@ -26,7 +23,7 @@ public class Teacher {
     private String email;
 
     @OneToMany(mappedBy = "teacher")
-    @JsonManagedReference
+
     private List<Student> students;
 
     public Teacher() {
