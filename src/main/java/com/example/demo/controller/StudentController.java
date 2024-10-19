@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.entity.Student;
 import com.example.demo.serviceinterface.StudentService;
 
@@ -44,7 +45,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<Page<Student>> getAll(Pageable pageable) {
         Page<Student> students = studentService.getAll(pageable);
-        return ResponseEntity.status(HttpStatus.FOUND).body(students);
+        return ResponseEntity.status(HttpStatus.OK).body(students);
     }
 
     @PutMapping("/{id}")
@@ -68,7 +69,7 @@ public class StudentController {
         if (studentService.existsById(id)) {
             studentService.delete(id);
             // return ResponseEntity.noContent().build();
-            return ResponseEntity.status(HttpStatus.FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } else {
             return ResponseEntity.notFound().build();
         }
